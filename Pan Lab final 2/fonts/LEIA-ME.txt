@@ -1,0 +1,21 @@
+PASTA DAS FONTES DO PAN LAB
+=========================
+O site usa estes 5 ficheiros (formato WOFF2, subconjunto "latin"):
+
+  bricolage-grotesque-700.woff2
+  bricolage-grotesque-800.woff2
+  dm-sans-400.woff2
+  dm-sans-500.woff2
+  dm-sans-700.woff2
+
+Como obter (gratuito, licença OFL, permite usar e alojar no teu site):
+1. Vai a https://gwfh.mranftl.com/fonts (google-webfonts-helper).
+2. Pesquisa "Bricolage Grotesque", escolhe o subconjunto "latin" e os pesos 700 e 800.
+   Pesquisa "DM Sans", subconjunto "latin" e os pesos regular (400), 500 e 700.
+3. Descarrega o ZIP, copia os ficheiros .woff2 para esta pasta e muda-lhes o
+   nome para os da lista acima.
+
+Enquanto faltarem, o site usa as fontes do sistema e funciona na mesma.
+Assim, o browser do visitante nunca contacta a Google.
+
+(Pan Lab versão 2.0: as fontes são as mesmas da versão anterior; podes reutilizar os ficheiros.)

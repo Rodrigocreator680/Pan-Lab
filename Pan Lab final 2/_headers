@@ -1,0 +1,22 @@
+# =========================================================
+# Cabeçalhos de segurança HTTP do Pan Lab
+# Funciona em Netlify e Cloudflare Pages (ficheiro "_headers" na raiz do site).
+# Noutros alojamentos, usa o ficheiro .htaccess (Apache) ou copia estas regras
+# para a configuração do servidor (nginx, etc.).
+# O GitHub Pages não permite cabeçalhos próprios: nesse caso só ficam
+# ativas as regras que já vão nas meta tags de cada página.
+# =========================================================
+/*
+  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data: https://images.unsplash.com; font-src 'self'; form-action 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), accelerometer=(), gyroscope=(), magnetometer=(), interest-cohort=()
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
+  # HSTS: só ativar depois de confirmares que o site e todos os subdomínios
+  # funcionam em HTTPS. Sem "includeSubDomains" é a opção mais prudente.
+  Strict-Transport-Security: max-age=31536000
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable

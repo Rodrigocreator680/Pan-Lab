@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <!-- ===== CONFIGURAÇÃO DA PÁGINA ===== -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Segurança: só se carrega conteúdo do próprio site (sem Google Fonts nem outros serviços externos; só as fotos vêm do CDN do Unsplash).
+       A política completa, com frame-ancestors, vai nos cabeçalhos do servidor (ficheiro _headers). -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data: https://images.unsplash.com; font-src 'self'; form-action 'self'; base-uri 'self'; object-src 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <title>Termos de Serviço | Pan Lab</title>
+  <meta name="description" content="Regras de utilização do Pan Lab: site gratuito de receitas, sem contas, com favoritos guardados no teu browser.">
+  <meta name="theme-color" content="#D32F20">
+
+  <link rel="stylesheet" href="panlab-style.css">
+</head>
+
+<body>
+
+  <a class="skip-link" href="#conteudo" data-i18n>Saltar para o conteúdo</a>
+
+
+  <!-- =====================================================
+       CABEÇALHO (igual ao das outras páginas)
+       ===================================================== -->
+  <header class="site-header">
+    <div class="container header__inner">
+
+      <a class="logo" href="index.html" aria-label="Pan Lab, página inicial" data-i18n-attr="aria-label">
+        <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+          <rect width="40" height="40" rx="12" fill="#D32F20"/>
+          <rect x="7" y="16" width="26" height="3" rx="1.5" fill="#fff"/>
+          <path d="M9 19h22v2a9 9 0 0 1-9 9h-4a9 9 0 0 1-9-9v-2z" fill="#fff"/>
+          <path d="M15 13c0-2 2-2 2-4M22 13c0-2 2-2 2-4" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/>
+        </svg>
+        <span data-i18n>Pan Lab</span>
+      </a>
+
+      <input type="checkbox" id="menu-toggle" class="menu-toggle">
+      <label for="menu-toggle" class="menu-button">
+        <span class="menu-button__bars" aria-hidden="true"></span>
+        <span data-i18n>Menu</span>
+      </label>
+
+      <nav class="main-nav" aria-label="Navegação principal" data-i18n-attr="aria-label">
+        <ul>
+          <li><a href="index.html" data-i18n>Início</a></li>
+          <li><a href="receitas.html" data-i18n>Receitas</a></li>
+          <li><a href="categorias.html" data-i18n>Categorias</a></li>
+          <li><a href="favoritos.html"><span data-i18n>Favoritos</span><span class="nav-count" data-fav-count hidden></span></a></li>
+          <li><a href="sobre.html" data-i18n>Sobre</a></li>
+        </ul>
+      </nav>
+
+      <form class="search" role="search" action="receitas.html" method="get">
+        <label class="visually-hidden" for="pesquisa" data-i18n>Pesquisar receitas</label>
+        <input id="pesquisa" type="search" name="q" placeholder="Pesquisar receitas ou ingredientes" data-i18n-attr="placeholder">
+        <button type="submit" aria-label="Pesquisar" data-i18n-attr="aria-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"/>
+            <path d="M20 20l-4-4"/>
+          </svg>
+        </button>
+      </form>
+
+      <!-- Seletor de idioma: guarda a escolha e recarrega a página (ver panlab-i18n.js) -->
+      <div class="lang">
+        <label class="visually-hidden" for="idioma" data-i18n>Idioma</label>
+        <select id="idioma" name="idioma" autocomplete="off">
+          <option value="pt-PT" lang="pt-PT">Português</option>
+          <option value="en" lang="en">English</option>
+          <option value="es" lang="es">Español</option>
+          <option value="fr" lang="fr">Français</option>
+          <option value="de" lang="de">Deutsch</option>
+          <option value="it" lang="it">Italiano</option>
+        </select>
+      </div>
+
+    </div>
+  </header>
+
+
+  <main id="conteudo">
+
+    <section class="page-hero" aria-labelledby="pagina-titulo">
+      <div class="container">
+        <h1 id="pagina-titulo" data-i18n>Termos de Serviço</h1>
+        <p data-i18n>As regras simples para usar o Pan Lab, incluindo o que deves saber sobre alergias, valores nutricionais e favoritos.</p>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         TEXTO LEGAL
+         Os valores entre [parênteses retos] são espaços para
+         preencheres com os dados reais do site antes de publicar.
+         ===================================================== -->
+    <section class="section section--sage">
+      <div class="container">
+        <div class="legal">
+          <p class="legal__lang-note" data-i18n-nota hidden>Este texto está disponível apenas em português. A versão em português é a única com valor jurídico; as traduções dos títulos e do resto da página servem só de apoio.</p>
+          
+          <p class="legal__updated">Última atualização: 12 de outubro de 2026</p>
+
+          <nav class="legal__toc" aria-labelledby="indice-titulo">
+            <h2 id="indice-titulo" data-i18n>Neste documento</h2>
+            <ol>
+<li><a href="#aceitacao">Aceitação dos termos</a></li>
+<li><a href="#servico">O que é o Pan Lab</a></li>
+<li><a href="#utilizacao">Utilização do site</a></li>
+<li><a href="#conta">Sem contas, com favoritos locais</a></li>
+<li><a href="#receitas">Receitas, saúde e segurança alimentar</a></li>
+<li><a href="#propriedade">Propriedade intelectual</a></li>
+<li><a href="#ligacoes">Ligações para outros sites</a></li>
+<li><a href="#disponibilidade">Disponibilidade do site</a></li>
+<li><a href="#responsabilidade">Limitação de responsabilidade</a></li>
+<li><a href="#privacidade">Privacidade</a></li>
+<li><a href="#alteracoes">Alterações aos termos</a></li>
+<li><a href="#lei">Lei aplicável e litígios</a></li>
+            </ol>
+          </nav>
+
+          <article class="legal__body">
+
+            <section id="aceitacao">
+              <h2 data-i18n>1. Aceitação dos termos</h2>
+              <p>Ao aceder e usar o Pan Lab, aceitas estes Termos de Serviço. Se não concordares com algum ponto, pedimos que não uses o site. O site é gerido por [Rodrigo Sousa], com sede em [Lisboa].</p>
+              <p>O Pan Lab destina-se ao público em geral. Se tiveres menos de 18 anos, usa o site com o acompanhamento de um adulto, sobretudo ao cozinhar.</p>
+            </section>
+
+            <section id="servico">
+              <h2 data-i18n>2. O que é o Pan Lab</h2>
+              <p>O Pan Lab é um site gratuito de receitas de culinária. Podes pesquisar e filtrar receitas, consultar ingredientes e modos de preparação, imprimir receitas e guardar as que mais gostas. O conteúdo tem fins informativos e de lazer.</p>
+            </section>
+
+            <section id="utilizacao">
+              <h2 data-i18n>3. Utilização do site</h2>
+              <p>Podes usar o Pan Lab livremente para uso pessoal e não comercial. Comprometes-te a não:</p>
+              <ul>
+                <li>usar o site para fins ilegais ou que prejudiquem terceiros;</li>
+                <li>tentar aceder de forma não autorizada ao site, ao servidor ou a dados de outras pessoas;</li>
+                <li>interferir com o funcionamento do site, por exemplo com pedidos automáticos em excesso;</li>
+                <li>copiar de forma sistemática o conteúdo do site (por exemplo, por «scraping») sem autorização escrita.</li>
+              </ul>
+              <p>Podemos limitar ou suspender o acesso ao site a quem não cumprir estes termos.</p>
+            </section>
+
+            <section id="conta">
+              <h2 data-i18n>4. Sem contas, com favoritos locais</h2>
+              <p>O Pan Lab não tem sistema de contas nem de registo. A funcionalidade de favoritos guarda a tua lista no <strong>localStorage</strong> do teu browser, no teu dispositivo. Isto significa que:</p>
+              <ul>
+                <li>os favoritos não são sincronizados entre dispositivos ou browsers;</li>
+                <li>podem desaparecer se limpares os dados do browser ou usares navegação privada;</li>
+                <li>não conseguimos recuperá-los, porque não os recebemos nem os guardamos.</li>
+              </ul>
+              <p>Se quiseres guardar uma receita de forma definitiva, recomendamos que a imprimas ou apontes o seu endereço. Para mais pormenores, consulta a <a href="privacy-policy.html">Política de Privacidade</a>.</p>
+            </section>
+
+            <section id="receitas">
+              <h2 data-i18n>5. Receitas, saúde e segurança alimentar</h2>
+              <p>Esforçamo-nos por publicar receitas testadas e bem explicadas, mas tens de ter em conta o seguinte:</p>
+              <ul>
+                <li><strong>Valores nutricionais e etiquetas de dieta</strong> (como «sem glúten», «vegan» ou «low carb») são <strong>estimativas indicativas</strong>. Variam com as marcas, os tamanhos e as quantidades que usares.</li>
+                <li><strong>Alergias e intolerâncias:</strong> verifica sempre os rótulos dos ingredientes. Se tens alergia ou intolerância alimentar (por exemplo, a glúten, frutos de casca rija, ovo, leite ou marisco), não te baseies apenas nas indicações do site.</li>
+                <li><strong>Dietas específicas e condições de saúde:</strong> o conteúdo não substitui o aconselhamento de um médico ou nutricionista.</li>
+                <li><strong>Segurança alimentar:</strong> cozinha carne, peixe e ovos de forma adequada, respeita as temperaturas de conservação e tem atenção especial ao consumo de ovos crus ou pouco cozinhados em crianças, grávidas, idosos e pessoas com o sistema imunitário fragilizado.</li>
+                <li><strong>Segurança na cozinha:</strong> tem cuidado com facas, óleos quentes, fogões e fornos. Tempos e temperaturas são indicativos e dependem do teu equipamento.</li>
+              </ul>
+            </section>
+
+            <section id="propriedade">
+              <h2 data-i18n>6. Propriedade intelectual</h2>
+              <p>Os textos, a organização, o design, o logótipo e os restantes elementos do Pan Lab pertencem ao responsável pelo site ou são usados com autorização, e estão protegidos pela lei do direito de autor.</p>
+              <p>Podes ler, imprimir e partilhar a ligação das receitas para uso pessoal. Não podes reproduzir, vender ou republicar o conteúdo, no todo ou em parte, para fins comerciais sem autorização prévia por escrito. Se partilhares uma receita, pedimos que indiques o Pan Lab como origem e incluas a ligação para a página.</p>
+            </section>
+
+            <section id="ligacoes">
+              <h2 data-i18n>7. Ligações para outros sites</h2>
+              <p>O Pan Lab pode conter ligações para sites de terceiros, como redes sociais. Não controlamos esses sites e não somos responsáveis pelo seu conteúdo nem pelas suas práticas de privacidade.</p>
+            </section>
+
+            <section id="disponibilidade">
+              <h2 data-i18n>8. Disponibilidade do site</h2>
+              <p>Tentamos manter o site sempre disponível, mas não garantimos que funcione sem interrupções ou erros. Podemos alterar, suspender ou retirar funcionalidades e conteúdos a qualquer momento, sem aviso prévio.</p>
+            </section>
+
+            <section id="responsabilidade">
+              <h2 data-i18n>9. Limitação de responsabilidade</h2>
+              <p>O Pan Lab é disponibilizado «tal como está». Na medida permitida pela lei, não nos responsabilizamos por danos resultantes do uso do site ou das receitas, incluindo resultados culinários diferentes do esperado, reações alérgicas, problemas de saúde ou perda de favoritos guardados no teu browser.</p>
+              <p>Nada nestes termos exclui ou limita direitos que a lei te reconheça como consumidor, nem responsabilidades que a lei não permita excluir.</p>
+            </section>
+
+            <section id="privacidade">
+              <h2 data-i18n>10. Privacidade</h2>
+              <p>O tratamento de dados no Pan Lab está descrito na nossa <a href="privacy-policy.html">Política de Privacidade</a>, que faz parte destes termos.</p>
+            </section>
+
+            <section id="alteracoes">
+              <h2 data-i18n>11. Alterações aos termos</h2>
+              <p>Podemos atualizar estes termos para refletir mudanças no site ou na lei. A data da última atualização está indicada no topo da página. Se continuares a usar o site depois de uma atualização, consideramos que aceitas a nova versão.</p>
+            </section>
+
+            <section id="lei">
+              <h2 data-i18n>12. Lei aplicável e litígios</h2>
+              <p>Estes termos regem-se pela lei portuguesa. Em caso de litígio, será competente o tribunal da área do teu domicílio, nos termos da lei aplicável aos consumidores. Como consumidor, podes também recorrer a uma entidade de resolução alternativa de litígios de consumo; mais informação em <a href="https://www.consumidor.gov.pt" rel="noopener noreferrer" target="_blank">www.consumidor.gov.pt</a>. O Livro de Reclamações Eletrónico está disponível em <a href="https://www.livroreclamacoes.pt" rel="noopener noreferrer" target="_blank">www.livroreclamacoes.pt</a>.</p>
+            </section>
+
+
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- =====================================================
+       RODAPÉ (igual ao das outras páginas)
+       ===================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+
+      <div class="footer__grid">
+
+        <div class="footer__brand">
+          <a class="logo" href="index.html" aria-label="Pan Lab, página inicial" data-i18n-attr="aria-label">
+            <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+              <rect width="40" height="40" rx="12" fill="#D32F20"/>
+              <rect x="7" y="16" width="26" height="3" rx="1.5" fill="#fff"/>
+              <path d="M9 19h22v2a9 9 0 0 1-9 9h-4a9 9 0 0 1-9-9v-2z" fill="#fff"/>
+              <path d="M15 13c0-2 2-2 2-4M22 13c0-2 2-2 2-4" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/>
+            </svg>
+            <span data-i18n>Pan Lab</span>
+          </a>
+          <p data-i18n>Receitas simples, bem explicadas e com ingredientes que se encontram em qualquer supermercado.</p>
+        </div>
+
+        <nav aria-labelledby="footer-explorar">
+          <h3 class="footer__title" id="footer-explorar" data-i18n>Explorar</h3>
+          <ul class="footer__list">
+            <li><a href="receitas.html" data-i18n>Todas as receitas</a></li>
+            <li><a href="categorias.html" data-i18n>Categorias</a></li>
+            <li><a href="favoritos.html" data-i18n>Favoritos</a></li>
+          </ul>
+        </nav>
+
+        <nav aria-labelledby="footer-categorias">
+          <h3 class="footer__title" id="footer-categorias" data-i18n>Categorias</h3>
+          <ul class="footer__list">
+            <li><a href="receitas.html?refeicao=pratos-principais" data-i18n>Pratos principais</a></li>
+            <li><a href="receitas.html?alimento=sopas" data-i18n>Sopas</a></li>
+            <li><a href="receitas.html?refeicao=sobremesas" data-i18n>Sobremesas</a></li>
+            <li><a href="receitas.html?alimento=vegetariano" data-i18n>Vegetariano</a></li>
+            <li><a href="receitas.html?alimento=vegan" data-i18n>Vegan</a></li>
+          </ul>
+        </nav>
+
+        <nav aria-labelledby="footer-info">
+          <h3 class="footer__title" id="footer-info" data-i18n>Informação</h3>
+          <ul class="footer__list">
+            <li><a href="sobre.html" data-i18n>Sobre o Pan Lab</a></li>
+            <li><a href="privacy-policy.html" data-i18n>Política de Privacidade</a></li>
+            <li><a href="terms-of-service.html" aria-current="page" data-i18n>Termos de Serviço</a></li>
+          </ul>
+        </nav>
+
+      </div>
+
+      <div class="footer__bottom">
+        <p data-i18n>© 2026 Pan Lab. Todos os direitos reservados.</p>
+        <ul class="footer__legal">
+          <li><a href="privacy-policy.html" data-i18n>Política de Privacidade</a></li>
+          <li><a href="terms-of-service.html" aria-current="page" data-i18n>Termos de Serviço</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- Favoritos: só para atualizar o número ao lado de "Favoritos" no menu -->
+  <script src="panlab-config.js"></script>
+  <script src="panlab-i18n.js"></script>
+  <script src="panlab-fotos.js"></script>
+  <script src="panlab-favoritos.js"></script>
+
+</body>
+</html>

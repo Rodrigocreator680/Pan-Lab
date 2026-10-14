@@ -1,0 +1,4 @@
+As fotos das receitas ficam aqui, com o nome <id-da-receita>.jpg (por exemplo lasanha-de-carne.jpg).
+O site já mostra as fotos a partir do Unsplash; ter os ficheiros aqui torna-o independente. Para as descarregar todas: corre "Descarregar fotos.bat" (Windows) ou ./descarregar-fotos.sh (Mac/Linux),
+que estão na pasta acima. Sem as fotos o site funciona na mesma, com os emojis.
+Fotos: Unsplash (https://unsplash.com/license). Os autores estão em panlab-fotos.js e aparecem em cada receita.

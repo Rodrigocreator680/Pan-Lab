@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <!-- ===== CONFIGURAÇÃO DA PÁGINA ===== -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Segurança: só se carrega conteúdo do próprio site (sem Google Fonts nem outros serviços externos; só as fotos vêm do CDN do Unsplash).
+       A política completa, com frame-ancestors, vai nos cabeçalhos do servidor (ficheiro _headers). -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data: https://images.unsplash.com; font-src 'self'; form-action 'self'; base-uri 'self'; object-src 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <!-- Este título e esta descrição são substituídos pelo panlab-receita.js
+       com os dados da receita aberta. -->
+  <title>Receita | Pan Lab</title>
+  <meta name="description" content="Receita passo a passo com ingredientes, dicas e informação nutricional.">
+  <meta name="theme-color" content="#D32F20">
+
+  <link rel="stylesheet" href="panlab-style.css">
+</head>
+
+<body>
+
+  <a class="skip-link" href="#conteudo" data-i18n>Saltar para o conteúdo</a>
+
+
+  <!-- =====================================================
+       CABEÇALHO (igual ao das outras páginas)
+       ===================================================== -->
+  <header class="site-header">
+    <div class="container header__inner">
+
+      <a class="logo" href="index.html" aria-label="Pan Lab, página inicial" data-i18n-attr="aria-label">
+        <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+          <rect width="40" height="40" rx="12" fill="#D32F20"/>
+          <rect x="7" y="16" width="26" height="3" rx="1.5" fill="#fff"/>
+          <path d="M9 19h22v2a9 9 0 0 1-9 9h-4a9 9 0 0 1-9-9v-2z" fill="#fff"/>
+          <path d="M15 13c0-2 2-2 2-4M22 13c0-2 2-2 2-4" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/>
+        </svg>
+        <span data-i18n>Pan Lab</span>
+      </a>
+
+      <input type="checkbox" id="menu-toggle" class="menu-toggle">
+      <label for="menu-toggle" class="menu-button">
+        <span class="menu-button__bars" aria-hidden="true"></span>
+        <span data-i18n>Menu</span>
+      </label>
+
+      <nav class="main-nav" aria-label="Navegação principal" data-i18n-attr="aria-label">
+        <ul>
+          <li><a href="index.html" data-i18n>Início</a></li>
+          <li><a href="receitas.html" data-i18n>Receitas</a></li>
+          <li><a href="categorias.html" data-i18n>Categorias</a></li>
+          <li><a href="favoritos.html"><span data-i18n>Favoritos</span><span class="nav-count" data-fav-count hidden></span></a></li>
+          <li><a href="sobre.html" data-i18n>Sobre</a></li>
+        </ul>
+      </nav>
+
+      <form class="search" role="search" action="receitas.html" method="get">
+        <label class="visually-hidden" for="pesquisa" data-i18n>Pesquisar receitas</label>
+        <input id="pesquisa" type="search" name="q" placeholder="Pesquisar receitas ou ingredientes" data-i18n-attr="placeholder">
+        <button type="submit" aria-label="Pesquisar" data-i18n-attr="aria-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"/>
+            <path d="M20 20l-4-4"/>
+          </svg>
+        </button>
+      </form>
+
+      <!-- Seletor de idioma: guarda a escolha e recarrega a página (ver panlab-i18n.js) -->
+      <div class="lang">
+        <label class="visually-hidden" for="idioma" data-i18n>Idioma</label>
+        <select id="idioma" name="idioma" autocomplete="off">
+          <option value="pt-PT" lang="pt-PT">Português</option>
+          <option value="en" lang="en">English</option>
+          <option value="es" lang="es">Español</option>
+          <option value="fr" lang="fr">Français</option>
+          <option value="de" lang="de">Deutsch</option>
+          <option value="it" lang="it">Italiano</option>
+        </select>
+      </div>
+
+    </div>
+  </header>
+
+
+  <main id="conteudo">
+
+    <noscript>
+      <div class="container">
+        <p class="noscript-msg">Esta página precisa de JavaScript para mostrar a receita. Ativa o JavaScript no teu browser e recarrega a página.</p>
+      </div>
+    </noscript>
+
+    <!-- =====================================================
+         ERRO: receita não encontrada
+         Aparece se o endereço não tiver um id válido
+         (ex.: receita.html?id=nao-existe).
+         ===================================================== -->
+    <section class="section" id="erro" hidden>
+      <div class="container empty-state">
+        <h1 data-i18n>Não encontrámos esta receita</h1>
+        <p data-i18n>O endereço pode estar errado, ou a receita já não existe.</p>
+        <a class="btn btn--primary" href="categorias.html" data-i18n>Explorar categorias</a>
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         RECEITA
+         Tudo o que está vazio aqui dentro é preenchido pelo
+         panlab-receita.js, a partir de panlab-receitas.js.
+         ===================================================== -->
+    <article id="receita" hidden>
+
+      <!-- Caminho de navegação: Início / Categorias / Tipo de refeição / Receita -->
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Caminho" data-i18n-attr="aria-label">
+          <ol id="breadcrumb"></ol>
+        </nav>
+      </div>
+
+
+      <!-- ---------------------------------------------------
+           TOPO: imagens à esquerda, informação à direita
+           --------------------------------------------------- -->
+      <section class="recipe-hero" aria-labelledby="titulo">
+        <div class="container recipe-hero__grid">
+
+          <!-- Galeria: imagem grande + miniaturas (só aparecem se houver mais de uma) -->
+          <div class="gallery" id="galeria">
+            <div class="gallery__stage">
+              <div class="gallery__image" id="galeria-imagem"></div>
+              <button type="button" class="gallery__nav gallery__nav--prev" id="galeria-anterior" aria-label="Imagem anterior" hidden data-i18n-attr="aria-label">‹</button>
+              <button type="button" class="gallery__nav gallery__nav--next" id="galeria-seguinte" aria-label="Imagem seguinte" hidden data-i18n-attr="aria-label">›</button>
+              <p class="gallery__count" id="galeria-contador" aria-live="polite" hidden></p>
+            </div>
+            <ul class="gallery__thumbs" id="galeria-miniaturas" hidden></ul>
+            <p class="gallery__credit" id="galeria-credito" hidden></p>
+          </div>
+
+          <!-- Título, descrição, tempos, etiquetas e botões -->
+          <div class="recipe-summary">
+            <h1 id="titulo"></h1>
+            <p class="recipe-summary__desc" id="descricao" hidden></p>
+
+            <!-- Preparação, cozedura, porções e dificuldade -->
+            <dl class="facts" id="factos"></dl>
+            <p class="total-time" id="tempo-total" hidden></p>
+
+            <!-- Etiquetas: cada uma abre a página de categorias já filtrada -->
+            <ul class="tag-list" id="etiquetas" aria-label="Categorias desta receita" data-i18n-attr="aria-label"></ul>
+
+            <!-- Botões de ação -->
+            <div class="actions">
+              <!-- O panlab-receita.js junta-lhe data-fav="id da receita"; o panlab-favoritos.js trata do resto -->
+              <button type="button" class="btn btn--primary btn--save" id="btn-guardar">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21.2l7.8-7.7 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+                <span data-fav-texto data-i18n>Adicionar aos favoritos</span>
+              </button>
+
+              <button type="button" class="btn btn--ghost" id="btn-imprimir">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                <span data-i18n>Imprimir</span>
+              </button>
+
+              <!-- Partilhar: usa a janela de partilha do telemóvel/sistema quando existe;
+                   senão abre este pequeno menu. -->
+              <div class="share">
+                <button type="button" class="btn btn--ghost" id="btn-partilhar" aria-expanded="false" aria-controls="menu-partilhar">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                  <span data-i18n>Partilhar</span>
+                </button>
+                <div class="share__menu" id="menu-partilhar" hidden>
+                  <button type="button" class="share__item" id="partilhar-copiar" data-i18n>Copiar link</button>
+                  <a class="share__item" id="partilhar-whatsapp" href="#" target="_blank" rel="noopener" data-i18n>WhatsApp</a>
+                  <a class="share__item" id="partilhar-email" href="#" data-i18n>Email</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- Atalhos para saltar para cada parte (úteis no telemóvel) -->
+      <nav class="jump-nav" id="atalhos" aria-label="Nesta receita" data-i18n-attr="aria-label">
+        <div class="container">
+          <ul>
+            <li><a href="#ingredientes" data-i18n>Ingredientes</a></li>
+            <li><a href="#preparacao" data-i18n>Preparação</a></li>
+            <li><a href="#dicas" data-i18n>Dicas</a></li>
+            <li><a href="#nutricao" data-i18n>Nutrição</a></li>
+            <li><a href="#relacionadas" data-i18n>Relacionadas</a></li>
+          </ul>
+        </div>
+      </nav>
+
+
+      <!-- Aviso para receitas que ainda não têm o conteúdo completo -->
+      <section class="section" id="sem-detalhes" hidden>
+        <div class="container empty-state">
+          <h2 data-i18n>Esta receita ainda está a ser escrita</h2>
+          <p data-i18n>Os ingredientes e o modo de preparação vão aparecer aqui em breve. Entretanto, vê outras receitas parecidas.</p>
+          <a class="btn btn--primary" href="#relacionadas" data-i18n>Ver receitas relacionadas</a>
+        </div>
+      </section>
+
+
+      <!-- ---------------------------------------------------
+           INGREDIENTES (esquerda) + MODO DE PREPARAÇÃO (direita)
+           Em ecrãs grandes a caixa dos ingredientes acompanha a
+           leitura dos passos (fica fixa enquanto se desce).
+           --------------------------------------------------- -->
+      <section class="section recipe-body" id="corpo">
+        <div class="container recipe-body__grid">
+
+          <aside class="ingredients" id="ingredientes" aria-labelledby="ingredientes-titulo">
+            <h2 class="section-title" id="ingredientes-titulo" data-i18n>Ingredientes</h2>
+
+            <!-- Escolher o número de porções: as quantidades recalculam-se -->
+            <div class="servings" role="group" aria-label="Número de porções" data-i18n-attr="aria-label">
+              <span class="servings__label" data-i18n>Porções</span>
+              <button type="button" class="servings__btn" id="porcoes-menos" aria-label="Menos uma porção" data-i18n-attr="aria-label">−</button>
+              <output class="servings__value" id="porcoes-valor" aria-live="polite"></output>
+              <button type="button" class="servings__btn" id="porcoes-mais" aria-label="Mais uma porção" data-i18n-attr="aria-label">+</button>
+            </div>
+            <p class="print-only" id="porcoes-impressao"></p>
+
+            <!-- Lista com caixas para ir riscando o que já tens -->
+            <div id="lista-ingredientes"></div>
+          </aside>
+
+          <div class="method" id="preparacao">
+            <h2 class="section-title" data-i18n>Modo de preparação</h2>
+            <ol class="steps" id="passos"></ol>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- ---------------------------------------------------
+           DICAS E TRUQUES
+           --------------------------------------------------- -->
+      <section class="section tips" id="dicas" aria-labelledby="dicas-titulo">
+        <div class="container tips__grid">
+          <h2 class="section-title" id="dicas-titulo" data-i18n>Dicas e truques</h2>
+          <ul class="tip-list" id="dicas-lista"></ul>
+        </div>
+      </section>
+
+
+      <!-- ---------------------------------------------------
+           INFORMAÇÃO NUTRICIONAL
+           --------------------------------------------------- -->
+      <section class="section" id="nutricao" aria-labelledby="nutricao-titulo">
+        <div class="container">
+          <h2 class="section-title" id="nutricao-titulo" data-i18n>Informação nutricional</h2>
+          <p class="nutrition-note" id="nutricao-nota"></p>
+          <dl class="nutrition" id="nutricao-lista"></dl>
+        </div>
+      </section>
+
+
+      <!-- ---------------------------------------------------
+           RECEITAS RELACIONADAS
+           As 4 mais parecidas (mesmo país, ingredientes, refeição...).
+           --------------------------------------------------- -->
+      <section class="section section--sage related" id="relacionadas" aria-labelledby="relacionadas-titulo">
+        <div class="container">
+          <div class="section-head">
+            <h2 id="relacionadas-titulo" data-i18n>Receitas relacionadas</h2>
+            <a class="link-more" href="categorias.html" data-i18n>Ver categorias</a>
+          </div>
+          <div class="recipe-grid" id="relacionadas-grelha"></div>
+        </div>
+      </section>
+
+    </article>
+
+  </main>
+
+
+  <!-- Mensagem curta que aparece e desaparece (ex.: "Link copiado") -->
+  <p class="toast" id="aviso" role="status" hidden></p>
+
+
+  <!-- =====================================================
+       RODAPÉ (igual ao das outras páginas)
+       ===================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+
+      <div class="footer__grid">
+
+        <div class="footer__brand">
+          <a class="logo" href="index.html" aria-label="Pan Lab, página inicial" data-i18n-attr="aria-label">
+            <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+              <rect width="40" height="40" rx="12" fill="#D32F20"/>
+              <rect x="7" y="16" width="26" height="3" rx="1.5" fill="#fff"/>
+              <path d="M9 19h22v2a9 9 0 0 1-9 9h-4a9 9 0 0 1-9-9v-2z" fill="#fff"/>
+              <path d="M15 13c0-2 2-2 2-4M22 13c0-2 2-2 2-4" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/>
+            </svg>
+            <span data-i18n>Pan Lab</span>
+          </a>
+          <p data-i18n>Receitas simples, bem explicadas e com ingredientes que se encontram em qualquer supermercado.</p>
+        </div>
+
+        <nav aria-labelledby="footer-explorar">
+          <h3 class="footer__title" id="footer-explorar" data-i18n>Explorar</h3>
+          <ul class="footer__list">
+            <li><a href="receitas.html" data-i18n>Todas as receitas</a></li>
+            <li><a href="categorias.html" data-i18n>Categorias</a></li>
+            <li><a href="favoritos.html" data-i18n>Favoritos</a></li>
+          </ul>
+        </nav>
+
+        <nav aria-labelledby="footer-categorias">
+          <h3 class="footer__title" id="footer-categorias" data-i18n>Categorias</h3>
+          <ul class="footer__list">
+            <li><a href="categorias.html?refeicao=pratos-principais" data-i18n>Pratos principais</a></li>
+            <li><a href="categorias.html?alimento=sopas" data-i18n>Sopas</a></li>
+            <li><a href="categorias.html?refeicao=sobremesas" data-i18n>Sobremesas</a></li>
+            <li><a href="categorias.html?alimento=vegetariano" data-i18n>Vegetariano</a></li>
+            <li><a href="categorias.html?alimento=vegan" data-i18n>Vegan</a></li>
+          </ul>
+        </nav>
+
+        <nav aria-labelledby="footer-info">
+          <h3 class="footer__title" id="footer-info" data-i18n>Informação</h3>
+          <ul class="footer__list">
+            <li><a href="sobre.html" data-i18n>Sobre o Pan Lab</a></li>
+            <li><a href="privacy-policy.html" data-i18n>Política de Privacidade</a></li>
+            <li><a href="terms-of-service.html" data-i18n>Termos de Serviço</a></li>
+          </ul>
+        </nav>
+
+      </div>
+
+      <div class="footer__bottom">
+        <p data-i18n>© 2026 Pan Lab. Todos os direitos reservados.</p>
+        <ul class="footer__legal">
+          <li><a href="privacy-policy.html" data-i18n>Política de Privacidade</a></li>
+          <li><a href="terms-of-service.html" data-i18n>Termos de Serviço</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- =====================================================
+       JAVASCRIPT
+       A ordem importa: dados básicos, detalhe das receitas,
+       sistema de favoritos e, por fim, a lógica da página.
+       ===================================================== -->
+  <script src="panlab-config.js"></script>
+  <script src="panlab-i18n.js"></script>
+  <script src="panlab-fotos.js"></script>
+  <script src="panlab-dados.js"></script>
+  <script src="panlab-receitas.js"></script>
+  <script src="panlab-favoritos.js"></script>
+  <script src="panlab-receita.js"></script>
+
+</body>
+</html>

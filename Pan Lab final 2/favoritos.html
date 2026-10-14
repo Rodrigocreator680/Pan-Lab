@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <!-- ===== CONFIGURAÇÃO DA PÁGINA ===== -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Segurança: só se carrega conteúdo do próprio site (sem Google Fonts nem outros serviços externos; só as fotos vêm do CDN do Unsplash).
+       A política completa, com frame-ancestors, vai nos cabeçalhos do servidor (ficheiro _headers). -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data: https://images.unsplash.com; font-src 'self'; form-action 'self'; base-uri 'self'; object-src 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <title>Favoritos | Pan Lab</title>
+  <meta name="description" content="As receitas que guardaste, sempre à mão. Os favoritos ficam guardados neste dispositivo, sem precisares de criar conta.">
+  <meta name="theme-color" content="#D32F20">
+
+  <link rel="stylesheet" href="panlab-style.css">
+</head>
+
+<!-- data-pagina="favoritos": o panlab-favoritos.js usa isto para não oferecer "Ver favoritos" quando já estás aqui -->
+<body data-pagina="favoritos">
+
+  <a class="skip-link" href="#conteudo" data-i18n>Saltar para o conteúdo</a>
+
+
+  <!-- =====================================================
+       CABEÇALHO (igual ao das outras páginas)
+       O número ao lado de "Favoritos" é atualizado pelo panlab-favoritos.js.
+       ===================================================== -->
+  <header class="site-header">
+    <div class="container header__inner">
+
+      <a class="logo" href="index.html" aria-label="Pan Lab, página inicial" data-i18n-attr="aria-label">
+        <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+          <rect width="40" height="40" rx="12" fill="#D32F20"/>
+          <rect x="7" y="16" width="26" height="3" rx="1.5" fill="#fff"/>
+          <path d="M9 19h22v2a9 9 0 0 1-9 9h-4a9 9 0 0 1-9-9v-2z" fill="#fff"/>
+          <path d="M15 13c0-2 2-2 2-4M22 13c0-2 2-2 2-4" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/>
+        </svg>
+        <span data-i18n>Pan Lab</span>
+      </a>
+
+      <input type="checkbox" id="menu-toggle" class="menu-toggle">
+      <label for="menu-toggle" class="menu-button">
+        <span class="menu-button__bars" aria-hidden="true"></span>
+        <span data-i18n>Menu</span>
+      </label>
+
+      <nav class="main-nav" aria-label="Navegação principal" data-i18n-attr="aria-label">
+        <ul>
+          <li><a href="index.html" data-i18n>Início</a></li>
+          <li><a href="receitas.html" data-i18n>Receitas</a></li>
+          <li><a href="categorias.html" data-i18n>Categorias</a></li>
+          <li><a href="favoritos.html" aria-current="page"><span data-i18n>Favoritos</span><span class="nav-count" data-fav-count hidden></span></a></li>
+          <li><a href="sobre.html" data-i18n>Sobre</a></li>
+        </ul>
+      </nav>
+
+      <form class="search" role="search" action="receitas.html" method="get">
+        <label class="visually-hidden" for="pesquisa" data-i18n>Pesquisar receitas</label>
+        <input id="pesquisa" type="search" name="q" placeholder="Pesquisar receitas ou ingredientes" data-i18n-attr="placeholder">
+        <button type="submit" aria-label="Pesquisar" data-i18n-attr="aria-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"/>
+            <path d="M20 20l-4-4"/>
+          </svg>
+        </button>
+      </form>
+
+      <!-- Seletor de idioma: guarda a escolha e recarrega a página (ver panlab-i18n.js) -->
+      <div class="lang">
+        <label class="visually-hidden" for="idioma" data-i18n>Idioma</label>
+        <select id="idioma" name="idioma" autocomplete="off">
+          <option value="pt-PT" lang="pt-PT">Português</option>
+          <option value="en" lang="en">English</option>
+          <option value="es" lang="es">Español</option>
+          <option value="fr" lang="fr">Français</option>
+          <option value="de" lang="de">Deutsch</option>
+          <option value="it" lang="it">Italiano</option>
+        </select>
+      </div>
+
+    </div>
+  </header>
+
+
+  <main id="conteudo">
+
+    <!-- =====================================================
+         TÍTULO DA PÁGINA
+         ===================================================== -->
+    <section class="page-hero" aria-labelledby="pagina-titulo">
+      <div class="container">
+        <h1 id="pagina-titulo" data-i18n>Os teus favoritos</h1>
+        <p data-i18n>As receitas que guardaste, sempre à mão. Ficam guardadas neste dispositivo e neste browser, sem precisares de criar conta.</p>
+      </div>
+    </section>
+
+
+    <section class="section section--sage" aria-label="Receitas guardadas" data-i18n-attr="aria-label">
+      <div class="container">
+
+        <noscript>
+          <p class="noscript-msg">Esta página precisa de JavaScript para mostrar os teus favoritos. Ativa o JavaScript no teu browser e recarrega a página.</p>
+        </noscript>
+
+        <!-- Número de receitas guardadas e botão para limpar tudo -->
+        <div class="section-head" id="cabecalho-lista" hidden>
+          <!-- role="status": os leitores de ecrã anunciam quando o número muda -->
+          <p class="results-count" id="contagem" role="status"></p>
+          <button type="button" class="btn-text" id="limpar-tudo" data-i18n>Limpar todos</button>
+        </div>
+
+        <!-- Cartões das receitas guardadas (desenhados pelo panlab-favoritos-pagina.js) -->
+        <div class="recipe-grid" id="grelha" hidden></div>
+
+        <!-- Mensagem quando ainda não há favoritos -->
+        <div class="fav-empty" id="vazio" hidden>
+          <div class="fav-empty__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21.2l7.8-7.7 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+          </div>
+          <h2 data-i18n>Ainda não tens favoritos</h2>
+          <p data-i18n>Quando encontrares uma receita de que gostes, carrega no coração para a guardares aqui e a encontrares num instante.</p>
+          <div class="fav-empty__actions">
+            <a class="btn btn--primary" href="receitas.html" data-i18n>Ver receitas</a>
+            <a class="btn btn--ghost" href="categorias.html" data-i18n>Explorar categorias</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- =====================================================
+       RODAPÉ (igual ao das outras páginas)
+       ===================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+
+      <div class="footer__grid">
+
+        <div class="footer__brand">
+          <a class="logo" href="index.html" aria-label="Pan Lab, página inicial" data-i18n-attr="aria-label">
+            <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+              <rect width="40" height="40" rx="12" fill="#D32F20"/>
+              <rect x="7" y="16" width="26" height="3" rx="1.5" fill="#fff"/>
+              <path d="M9 19h22v2a9 9 0 0 1-9 9h-4a9 9 0 0 1-9-9v-2z" fill="#fff"/>
+              <path d="M15 13c0-2 2-2 2-4M22 13c0-2 2-2 2-4" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/>
+            </svg>
+            <span data-i18n>Pan Lab</span>
+          </a>
+          <p data-i18n>Receitas simples, bem explicadas e com ingredientes que se encontram em qualquer supermercado.</p>
+        </div>
+
+        <nav aria-labelledby="footer-explorar">
+          <h3 class="footer__title" id="footer-explorar" data-i18n>Explorar</h3>
+          <ul class="footer__list">
+            <li><a href="receitas.html" data-i18n>Todas as receitas</a></li>
+            <li><a href="categorias.html" data-i18n>Categorias</a></li>
+            <li><a href="favoritos.html" data-i18n>Favoritos</a></li>
+          </ul>
+        </nav>
+
+        <nav aria-labelledby="footer-categorias">
+          <h3 class="footer__title" id="footer-categorias" data-i18n>Categorias</h3>
+          <ul class="footer__list">
+            <li><a href="receitas.html?refeicao=pratos-principais" data-i18n>Pratos principais</a></li>
+            <li><a href="receitas.html?alimento=sopas" data-i18n>Sopas</a></li>
+            <li><a href="receitas.html?refeicao=sobremesas" data-i18n>Sobremesas</a></li>
+            <li><a href="receitas.html?alimento=vegetariano" data-i18n>Vegetariano</a></li>
+            <li><a href="receitas.html?alimento=vegan" data-i18n>Vegan</a></li>
+          </ul>
+        </nav>
+
+        <nav aria-labelledby="footer-info">
+          <h3 class="footer__title" id="footer-info" data-i18n>Informação</h3>
+          <ul class="footer__list">
+            <li><a href="sobre.html" data-i18n>Sobre o Pan Lab</a></li>
+            <li><a href="privacy-policy.html" data-i18n>Política de Privacidade</a></li>
+            <li><a href="terms-of-service.html" data-i18n>Termos de Serviço</a></li>
+          </ul>
+        </nav>
+
+      </div>
+
+      <div class="footer__bottom">
+        <p data-i18n>© 2026 Pan Lab. Todos os direitos reservados.</p>
+        <ul class="footer__legal">
+          <li><a href="privacy-policy.html" data-i18n>Política de Privacidade</a></li>
+          <li><a href="terms-of-service.html" data-i18n>Termos de Serviço</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- =====================================================
+       JAVASCRIPT
+       A ordem importa: dados, sistema de favoritos, lógica da página.
+       ===================================================== -->
+  <script src="panlab-config.js"></script>
+  <script src="panlab-i18n.js"></script>
+  <script src="panlab-fotos.js"></script>
+  <script src="panlab-dados.js"></script>
+  <script src="panlab-receitas.js"></script>
+  <script src="panlab-favoritos.js"></script>
+  <script src="panlab-favoritos-pagina.js"></script>
+
+</body>
+</html>

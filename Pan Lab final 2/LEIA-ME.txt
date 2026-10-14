@@ -1,0 +1,48 @@
+PAN LAB - versão 4.0 (12 de outubro de 2026)
+============================================
+
+Pan Lab tem 100 receitas, seletor de 6 idiomas e foto real em 100 receitas.
+Todos os ficheiros de código têm o prefixo "panlab-".
+
+COMO ABRIR
+  Duplo clique em index.html (ou envia a pasta inteira para o alojamento).
+  Não separes os ficheiros: as páginas dependem umas das outras.
+
+FOTOS (importante)
+  As fotos são do Unsplash (licença gratuita, uso livre incl. comercial, sem pedir autorização;
+  os fotógrafos mantêm os direitos de autor e o site mostra o crédito em cada receita).
+  As fotos aparecem logo, carregadas do CDN do Unsplash (precisa de internet). Isto significa que
+  o browser de quem visita contacta o Unsplash (já referido na página de Privacidade).
+  OPCIONAL - tornar o site independente: descarrega as fotos para a pasta imagens/, uma vez:
+    Windows:    duplo clique em "Descarregar fotos.bat"
+    Mac/Linux:  ./descarregar-fotos.sh
+  Se existirem em imagens/, o site usa essas (e deixa de ser preciso contactar o Unsplash;
+  nesse caso podes tirar https://images.unsplash.com do img-src em _headers, .htaccess e nas páginas).
+  A lista está em fotos-lista.txt. Para acrescentar uma foto: põe imagens/<id-da-receita>.jpg
+  e acrescenta uma linha em panlab-fotos.js (n = fotógrafo, u = utilizador do Unsplash).
+
+IDIOMAS
+  Português (pt-PT), English, Español, Français, Deutsch, Italiano.
+  O seletor está no cabeçalho; a escolha fica guardada no browser. Também funciona
+  index.html?lang=en. Na primeira visita usa o idioma do browser; se não existir aqui, inglês.
+  As páginas legais (Privacidade e Termos) têm o texto completo só em português.
+
+FICHEIROS
+  index.html, receitas.html, receita.html, categorias.html, favoritos.html,
+  sobre.html, privacy-policy.html, terms-of-service.html
+  panlab-style.css, panlab-i18n.js, panlab-lang-xx.js (traduções), panlab-fotos.js,
+  panlab-dados.js, panlab-receitas.js (as receitas), panlab-receita.js, panlab-categorias.js,
+  panlab-pesquisa.js, panlab-favoritos.js, panlab-favoritos-pagina.js, panlab-config.js
+  imagens/   fotos (ver acima)        fonts/   fontes (ver fonts/LEIA-ME.txt)
+  _headers, .htaccess   segurança do alojamento (não apagues)
+
+PÁGINAS LEGAIS
+  Não há página de contacto. As páginas de Privacidade e Termos ainda têm espaços
+  [entre parênteses retos] (responsável, morada, NIF). Podes preenchê-los em panlab-config.js
+  quando tiveres os dados, ou rever o texto com um jurista antes de publicar.
+
+FAVORITOS
+  Quem tinha favoritos da versão "Tacho" no mesmo browser e endereço não os perde.
+
+NOTA
+  As traduções das páginas legais são cópias de cortesia e não substituem aconselhamento jurídico.
